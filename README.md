@@ -1,3 +1,5 @@
+[![Node.js CI](https://github.com/stbestichhh/lcs-cloud-storage-docs/actions/workflows/node.js.yml/badge.svg)](https://github.com/stbestichhh/lcs-cloud-storage-docs/actions/workflows/node.js.yml)
+
 # Nextra Docs Template 
 
 This is a template for creating documentation with [Nextra](https://nextra.site).
