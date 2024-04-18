@@ -1,25 +1,59 @@
 [![Node.js CI](https://github.com/stbestichhh/lcs-cloud-storage-docs/actions/workflows/node.js.yml/badge.svg)](https://github.com/stbestichhh/lcs-cloud-storage-docs/actions/workflows/node.js.yml)
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 
-# Nextra Docs Template 
+# lcs-cloud-storage documentation
 
-This is a template for creating documentation with [Nextra](https://nextra.site).
+## About
+This website provides documentation for lcs-cloud-storage server application. There you will find about instalation, deployment, CLI and API usage, contributing and etc.
 
-[**Live Demo →**](https://nextra-docs-template.vercel.app)
+## Getting started
 
-[![](.github/screenshot.png)](https://nextra-docs-template.vercel.app)
+### Prerequisites
 
-## Quick Start
+* yarn `npm i -g yarn` or `corepack enable`
 
-Click the button to clone this repository and deploy it on Vercel:
+> [!IMPORTANT]
+> **Node.js 18.x+** version must be installed in your OS.
 
-[![](https://vercel.com/button)](https://vercel.com/new/clone?s=https%3A%2F%2Fgithub.com%2Fshuding%2Fnextra-docs-template&showOptionalTeamCreation=false)
+### Deploy localy
 
-## Local Development
+1. Clone the repository
 
-First, run `pnpm i` to install the dependencies.
+```shell
+$ https://github.com/stbestichhh/lcs-cloud-storage-docs
+```
 
-Then, run `pnpm dev` to start the development server and visit localhost:3000.
+2. Install dependencies
+
+```shell
+$ yarn install
+```
+
+3. Start the local server
+
+  * Development
+    ```shell
+    $ yarn start
+    ```
+
+  * Production
+    ```shell
+    $ yarn build
+    $ yarn start:prod
+    ```
+
+#### or deploy without installing
+
+```shell
+$ docker build -t lcs-cloud-storage-docs:0.0.1 .
+$ docker run -p <port>:3000 lcs-cloud-storage-docs:0.0.1
+```
+
+## Authors
+
+* [@stbestichhh](https://github.com/stbestichhh)
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE)
