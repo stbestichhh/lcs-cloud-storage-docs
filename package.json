@@ -1,22 +1,22 @@
 {
-  "name": "nextra-docs-template",
+  "name": "lcs-cloud-storage-docs",
   "version": "0.0.1",
-  "description": "Nextra docs template",
+  "description": "Documentation website for lcs-cloud-storage server application.",
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start:prod": "next start",
+    "start:dev": "next dev"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/shuding/nextra-docs-template.git"
+    "url": "git+https://github.com/stbestichhh/lcs-cloud-storage-docs"
   },
-  "author": "Shu Ding <g@shud.in>",
+  "author": "Kiril Yakymchuk <stbestich@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/shuding/nextra-docs-template/issues"
+    "url": "https://github.com/stbestichhh/lcs-cloud-storage-docs/issues"
   },
-  "homepage": "https://github.com/shuding/nextra-docs-template#readme",
+  "homepage": "https://github.com/stbestichhh/lcs-cloud-storage-docs#readme",
   "dependencies": {
     "next": "^13.0.6",
     "nextra": "latest",
