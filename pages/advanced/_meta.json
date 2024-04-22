@@ -1,0 +1,6 @@
+{
+  "cli": "Command Line Interface (CLI)",
+  "api": "RESTful API",
+  "config": "Server config",
+  "env": ".ENV explanation"
+}

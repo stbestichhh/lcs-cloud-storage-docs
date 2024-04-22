@@ -1,0 +1,75 @@
+# Server configuration
+
+lcs cloud storage provides a cli for easy server configuration.
+
+## Config command
+
+```shell
+config|cfg [options]    define a default config for the server
+Options:
+--dhost <dhost>    define default server host
+--dport <dport>    define default server port
+--jwtkey <jwtkey>  define jwt key for signing login tokens
+--dbname <dbname>  define name for signed up users database
+-h, --help         display help for command
+```
+
+## About
+
+### dhost
+
+Default host for the server, which it will use.
+
+**Usage examples**
+
+```shell
+$ lcs config --dhost=localhost
+```
+
+```shell
+$ lcs config --dhost localhost
+```
+
+### dport
+
+Default port for the server, on which it will work.
+
+**Usage examples**
+
+```shell
+$ lcs config --dport=3000
+```
+
+```shell
+$ lcs config --dport 3000
+```
+
+### jwtkey
+
+‼️_**Required for lcs server. If it's not provided it will throw error on login or trying to reach protected route!**_
+
+Defines a jsonwebtoken secret key to sign authentication tokens.
+
+**Usage examples**
+
+```shell
+$ lcs config --jwtkey=superkey
+```
+
+```shell
+$ lcs config --jwtkey superkey
+```
+
+### dbname
+
+Defines name for the database file where will be stored all users account
+
+**Usage examples**
+
+```shell
+$ lcs config --dbname=mydb
+```
+
+```shell
+$ lcs config --dbname mydb
+```

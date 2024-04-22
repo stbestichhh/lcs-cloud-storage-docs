@@ -1,0 +1,39 @@
+# Command Line Interface (CLI)
+
+Usage: `lcs [options] [command]`
+
+#### Options:
+
+```shell
+-V, --version    output version number
+-l, --log        log every error to logfile
+-h, --help       display help for command
+```
+
+#### Commands:
+
+```shell
+config|cfg [options]    define a default config for the server
+Options:
+--dhost <dhost>    define default server host
+--dport <dport>    define default server port
+--jwtkey <jwtkey>  define jwt key for signing login tokens
+--dbname <dbname>  define name for signed up users database
+-h, --help         display help for command
+```
+
+```shell
+server|run [options]    start the local cloud storage server
+Options:
+-p, --port <port>    tell server which port to use
+-h, --host <host>    tell server which host to use
+--help               display help for command
+```
+
+```shell
+prune [options]    clear server data and delete it
+Options:
+-c, --config    clear server config
+-s, --storage   clear server storage
+-a, --all       clear all server data
+```
