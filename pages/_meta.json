@@ -6,10 +6,10 @@
     "title": "About",
     "type": "page"
   },
-  "contact": {
-    "title": "Contact ↗",
+  "github": {
+    "title": "GitHub ↗",
     "type": "page",
-    "href": "https://twitter.com/shuding_",
+    "href": "https://github.com/stbestichhh/lcs-cloud-storage-server",
     "newWindow": true
   }
 }
