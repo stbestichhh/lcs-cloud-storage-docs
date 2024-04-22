@@ -1,0 +1,306 @@
+# RESTful API
+
+ApiDog documentation can be found [here](https://apidog.com/apidoc/project-500233).
+
+# Endpoints
+
+## Authentication
+
+### `POST /auth/signup`
+
+Create user account.
+
+### Request
+
+```json
+{
+  "body":
+    "name": "myname",
+    "email": "email@email.com",
+    "password": "mypass",
+    "password_repeat": "mypass"
+}
+```
+
+### Response
+
+```json
+{
+    "message": "Successfully signed up."
+}
+```
+
+### Possible exceptions
+
+```
+400 | No request body provided 'Any filed from request body is missing'
+400 | Email is wrong format 'Not an email'
+400 | Password it too weak 'Password is less than 6 characters length'
+403 | Forbidden 'If email already registred'
+```
+
+### `POST /auth/signin`
+
+Login to user account.
+
+### Request
+
+```json
+{
+  "body":
+    "email": "email@email.com",
+    "password": "mypass",
+}
+```
+
+### Response
+
+```json
+{
+    "message": "Successfully signed in."
+}
+```
+
+### Possible exceptions
+
+```
+400 | No request body provided 'Any filed from request body is missing'
+400 | Email is wrong format 'Not an email'
+403 | Credentials are incorrect. 'User not found in database'
+400 | Credentials are incorrect. 'If password is wrong'
+```
+
+## Filesystem
+
+### `GET /storage/ls/*`
+
+Lists directory content on the specified path
+
+### Authentication
+
+```
+Bearer <auth token>
+```
+
+### Request
+
+#### Url example
+
+```
+http://localhost:3000/storage/ls/dir1/
+```
+
+### Response
+
+```json
+[
+  "dir2",
+  "nesteddir",
+  "file.txt"
+]
+```
+
+### Possible exceptions
+
+```
+403 | Path does not exists 'If specified path not exists'
+```
+
+### `POST /storage/md/*`
+
+Creates directory in the specified path. If path not exists, will create directory recursively.
+
+### Authentication
+
+```
+Bearer <auth token>
+```
+
+### Request
+
+#### Url example
+
+```
+http://localhost:3000/storage/md/dir1/newdir
+```
+
+```json
+{
+  "body":
+    "dirname": "dir3"
+}
+```
+
+### Response
+
+```json
+{
+    "directory": "/Users/user/.lcs/storage/<user_dir_id>/dir1/newdir/dir3"
+}
+```
+
+### Possible exceptions
+
+```
+403 | No name provided 'If 'dirname' in request body is missing'
+```
+
+### `PUT /storage/mv/*`
+
+Moves file or directory to the specified path or rename them.
+
+### Authentication
+
+```
+Bearer <auth token>
+```
+
+### Request
+
+#### Url example
+
+```
+http://localhost:3000/storage/mv/dir1
+```
+
+```json
+{
+  "newDirpath": "new/dir/path/dir2"
+}
+```
+
+### Response
+
+```json
+{
+    "oldDirpath": "/Users/user/.lcs/storage/<user_dir_id>/dir1",
+    "newDirpath": "/Users/user/.lcs/storage/<user_dir_id>/new/dir/path/dir2"
+}
+```
+
+### Possible exceptions
+
+```
+403 | No body provided 'If 'newDirpath' in request body is missing'
+403 | No such file or directory 'path specified in 'newDirpath' does not exists'
+```
+
+### `DELETE /storage/rmrf/*`
+
+Removes not empty directories and files
+
+### Authentication
+
+```
+Bearer <auth token>
+```
+
+### Request
+
+#### Url example
+
+```
+http://localhost:3000/storage/rmrf/dir1
+```
+
+### Response
+
+```json
+{
+    "message": "Directory removed."
+}
+```
+
+### Possible exceptions
+
+```
+403 | No such file or directory 'Target path does not exists'
+```
+
+### `DELETE /storage/rm/*`
+
+Removes empty directories and files
+
+### Authentication
+
+```
+Bearer <auth token>
+```
+
+### Request
+
+#### Url example
+
+```
+http://localhost:3000/storage/rm/dir1/file.txt
+```
+
+### Response
+
+```json
+{
+    "message": "File removed."
+}
+```
+
+### Possible exceptions
+
+```
+403 | No such file or directory 'Target path does not exists'
+```
+
+### `POST /storage/upload/*`
+
+Uploads file or files to the specified path. If target directory not exists it creates a new one recursively
+
+### Authentication
+
+```
+Bearer <auth token>
+```
+
+### Request
+
+#### Url example
+
+```
+http://localhost:3000/storage/upload/dir1
+```
+
+#### multipart/form-data
+
+`file`: optional
+
+Example: `file:///Users/user/Files/file.txt`
+
+### Response
+
+```json
+{
+    "message": "Uploaded."
+}
+```
+
+### `GET /storage/download/*`
+
+Downloads file from specified path
+
+### Authentication
+
+```
+Bearer <auth token>
+```
+
+### Request
+
+#### Url example
+
+```
+http://localhost:3000/storage/download/file.txt
+```
+
+### Possible exceptions
+
+```
+403 | No such file 'Target path does not exists'
+```

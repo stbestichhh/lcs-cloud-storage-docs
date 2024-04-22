@@ -2,14 +2,10 @@
   "index": "Introduction",
   "get-started": "Get started",
   "advanced": "Advanced usage",
+  "development": "Development",
+  "faq": "FAQ",
   "about": {
     "title": "About",
     "type": "page"
-  },
-  "github": {
-    "title": "GitHub ↗",
-    "type": "page",
-    "href": "https://github.com/stbestichhh/lcs-cloud-storage-server",
-    "newWindow": true
   }
 }
