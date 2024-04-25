@@ -1,6 +1,6 @@
 {
   "name": "lcs-cloud-storage-docs",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Documentation website for lcs-cloud-storage server application.",
   "scripts": {
     "build": "next build",
