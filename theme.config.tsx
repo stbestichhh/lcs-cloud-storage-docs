@@ -6,9 +6,9 @@ const config: DocsThemeConfig = {
   project: {
     link: 'https://github.com/stbestichhh/lcs-cloud-storage-server',
   },
-  docsRepositoryBase: 'https://github.com/shuding/nextra-docs-template',
+  docsRepositoryBase: 'https://github.com/stbestichhh/lcs-cloud-storage-docs',
   footer: {
-    text: 'Nextra Docs Template',
+    text: 'Kiril Yakymchuk 2024',
   },
 }
 
