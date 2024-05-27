@@ -11,6 +11,7 @@ Options:
 --dport <dport>    define default server port
 --jwtkey <jwtkey>  define jwt key for signing login tokens
 --dbname <dbname>  define name for signed up users database
+--authexp <time>   define a life time for login sessions. Format: "2 days", "10h", "7d"
 -h, --help         display help for command
 ```
 
@@ -72,4 +73,22 @@ $ lcs config --dbname=mydb
 
 ```shell
 $ lcs config --dbname mydb
+```
+
+### authexp
+
+Defines a lifetime of authentication session for users
+
+**Usage examples**
+
+```shell
+$ lcs config --authexp "2 days"
+```
+
+```shell
+$ lcs config --authexp 7h
+```
+
+```shell
+lcs config --authexp 10d
 ```

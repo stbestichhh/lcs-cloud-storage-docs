@@ -19,6 +19,7 @@ Options:
 --dport <dport>    define default server port
 --jwtkey <jwtkey>  define jwt key for signing login tokens
 --dbname <dbname>  define name for signed up users database
+--authexp <time>   define a life time for login sessions. Format: "2 days", "10h", "7d"
 -h, --help         display help for command
 ```
 
@@ -27,6 +28,7 @@ server|run [options]    start the local cloud storage server
 Options:
 -p, --port <port>    tell server which port to use
 -h, --host <host>    tell server which host to use
+--https [days]       tell server to use https protocol
 --help               display help for command
 ```
 
@@ -35,5 +37,7 @@ prune [options]    clear server data and delete it
 Options:
 -c, --config    clear server config
 -s, --storage   clear server storage
+-db, --database drop user database
 -a, --all       clear all server data
+-h, --help      display help for command
 ```

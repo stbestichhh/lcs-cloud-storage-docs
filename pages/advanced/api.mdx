@@ -1,7 +1,5 @@
 # RESTful API
 
-ApiDog documentation can be found [here](https://apidog.com/apidoc/project-500233).
-
 # Endpoints
 
 ## Authentication
@@ -18,7 +16,6 @@ Create user account.
     "name": "myname",
     "email": "email@email.com",
     "password": "mypass",
-    "password_repeat": "mypass"
 }
 ```
 
@@ -66,13 +63,13 @@ Login to user account.
 ```
 400 | No request body provided 'Any filed from request body is missing'
 400 | Email is wrong format 'Not an email'
-403 | Credentials are incorrect. 'User not found in database'
-400 | Credentials are incorrect. 'If password is wrong'
+404 | Credentials are incorrect. 'User not found in database'
+404 | Credentials are incorrect. 'If password is wrong'
 ```
 
 ## Filesystem
 
-### `GET /storage/cat/*`
+### `GET /storage/cmd/cat`
 
 Shows files content
 
@@ -84,28 +81,29 @@ Bearer <auth token>
 
 ### Request
 
-#### Url example
-
-```
-http://localhost:3000/storage/cat/file.txt
+```json
+{
+  "body":
+    "path": "dir1/file.txt",
+}
 ```
 
 ### Response
 
 ```json
 {
-    "content": "string"
+    "content": "some content"
 }
 ```
 
 ### Possible exceptions
 
 ```
-403 | Path does not exists 'If specified path not exists'
+400 | Path does not exists 'If specified path not exists'
 ```
 
 
-### `GET /storage/ls/*`
+### `GET /storage/cmd/ls`
 
 Lists directory content on the specified path
 
@@ -117,10 +115,11 @@ Bearer <auth token>
 
 ### Request
 
-#### Url example
-
-```
-http://localhost:3000/storage/ls/dir1/
+```json
+{
+  "body":
+    "path": "dir1",
+}
 ```
 
 ### Response
@@ -136,10 +135,11 @@ http://localhost:3000/storage/ls/dir1/
 ### Possible exceptions
 
 ```
-403 | Path does not exists 'If specified path not exists'
+400 | Path does not exists 'If specified path not exists'
+400 | Using ls command on a file
 ```
 
-### `POST /storage/md/*`
+### `POST /storage/cmd/md`
 
 Creates directory in the specified path. If path not exists, will create directory recursively.
 
@@ -151,15 +151,10 @@ Bearer <auth token>
 
 ### Request
 
-#### Url example
-
-```
-http://localhost:3000/storage/md/dir1/newdir
-```
-
 ```json
 {
   "body":
+    "path": "dir1/nesteddir",
     "dirname": "dir3"
 }
 ```
@@ -167,10 +162,10 @@ http://localhost:3000/storage/md/dir1/newdir
 ### Possible exceptions
 
 ```
-403 | No name provided 'If 'dirname' in request body is missing'
+400 | No name provided 'If 'dirname' in request body is missing' or path not exists
 ```
 
-### `POST /storage/touch/*`
+### `POST /storage/cmd/touch`
 
 Creates file in the specified path. If path not exists, will create throw error.
 
@@ -182,15 +177,10 @@ Bearer <auth token>
 
 ### Request
 
-#### Url example
-
-```
-http://localhost:3000/storage/touch/file.txt
-```
-
 ```json
 {
-    "content": string
+    "path": "dir1/nesteddir/file.txt"
+    "content": "some content"
 }
 ```
 
@@ -205,10 +195,10 @@ http://localhost:3000/storage/touch/file.txt
 ### Possible exceptions
 
 ```
-403 | No such file or directory 'path does not exists'
+400 | No such file or directory 'path does not exists'
 ```
 
-### `PUT /storage/mv/*`
+### `PUT /storage/cmd/mv`
 
 Moves file or directory to the specified path or rename them.
 
@@ -220,15 +210,10 @@ Bearer <auth token>
 
 ### Request
 
-#### Url example
-
-```
-http://localhost:3000/storage/mv/dir1
-```
-
 ```json
 {
-  "newDirpath": "new/dir/path/dir2"
+  "path": "dir1/dir2"
+  "newpath": "dir1/nesteddir/dir2"
 }
 ```
 
@@ -237,11 +222,11 @@ http://localhost:3000/storage/mv/dir1
 ### Possible exceptions
 
 ```
-403 | No body provided 'If 'newDirpath' in request body is missing'
-403 | No such file or directory 'path specified in 'newDirpath' does not exists'
+400 | No body provided 'If 'newDirpath' in request body is missing'
+400 | No such file or directory 'path specified in 'newDirpath' does not exists'
 ```
 
-### `DELETE /storage/rmrf/*`
+### `DELETE /storage/cmd/rmrf`
 
 Removes not empty directories and files
 
@@ -253,10 +238,11 @@ Bearer <auth token>
 
 ### Request
 
-#### Url example
-
-```
-http://localhost:3000/storage/rmrf/dir1
+```json
+{
+  "body":
+    "path": "dir1/nesteddir",
+}
 ```
 
 ### Response
@@ -270,10 +256,10 @@ http://localhost:3000/storage/rmrf/dir1
 ### Possible exceptions
 
 ```
-403 | No such file or directory 'Target path does not exists'
+400 | No such file or directory 'Target path does not exists'
 ```
 
-### `DELETE /storage/rm/*`
+### `DELETE /storage/cmd/rm`
 
 Removes empty directories and files
 
@@ -285,10 +271,11 @@ Bearer <auth token>
 
 ### Request
 
-#### Url example
-
-```
-http://localhost:3000/storage/rm/dir1/file.txt
+```json
+{
+  "body":
+    "path": "file.txt",
+}
 ```
 
 ### Response
@@ -302,10 +289,10 @@ http://localhost:3000/storage/rm/dir1/file.txt
 ### Possible exceptions
 
 ```
-403 | No such file or directory 'Target path does not exists'
+400 | No such file or directory 'Target path does not exists'
 ```
 
-### `POST /storage/upload/*`
+### `POST /storage/cmd/ul`
 
 Uploads file or files to the specified path. If target directory not exists it creates a new one recursively
 
@@ -319,8 +306,11 @@ Bearer <auth token>
 
 #### Url example
 
-```
-http://localhost:3000/storage/upload/dir1
+```json
+{
+  "body":
+    "path": "dir1",
+}
 ```
 
 #### multipart/form-data
@@ -337,7 +327,7 @@ Example: `file:///Users/user/Files/file.txt`
 }
 ```
 
-### `GET /storage/download/*`
+### `GET /storage/cmd/dl`
 
 Downloads file from specified path
 
@@ -351,12 +341,100 @@ Bearer <auth token>
 
 #### Url example
 
-```
-http://localhost:3000/storage/download/file.txt
+```json
+{
+  "body":
+    "path": "dir1/file.txt",
+}
 ```
 
 ### Possible exceptions
 
 ```
-403 | No such file 'Target path does not exists'
+400 | No such file 'Target path does not exists'
+```
+
+### `GET /storage/cmd/tree`
+
+Returns directory tree
+
+### Authentication
+
+```
+Bearer <auth token>
+```
+
+### Request
+
+#### Url example
+
+```json
+{
+  "body":
+    "path": "dir1",
+}
+```
+
+### Response
+
+```json
+{
+    "tree": {
+      "dir1": {
+        "nesteddir": {
+          "dir3": {}
+        }
+        "file.txt": null
+      }
+    }
+}
+```
+
+### Possible exceptions
+
+```
+400 | No such file 'Target path does not exists'
+```
+
+### `GET /user/me`
+
+Return currently logged in user
+
+### Authentication
+
+```
+Bearer <auth token>
+```
+
+### Response
+
+```json
+{
+    "user": {
+      "username": "myname"
+      ...
+    }
+}
+```
+
+### `PATCH /user/me`
+
+Edit user data
+
+### Authentication
+
+```
+Bearer <auth token>
+```
+
+### Request
+
+#### Url example
+
+```json
+{
+  "body":
+    "username": "newname",
+    "password": "newpassword"
+}
 ```
