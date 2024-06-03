@@ -6,7 +6,7 @@ Usage: `lcs [options] [command]`
 
 ```shell
 -V, --version    output version number
--l, --log        log every error to logfile
+-l, --log        enable logging
 -h, --help       display help for command
 ```
 
@@ -18,7 +18,6 @@ Options:
 --dhost <dhost>    define default server host
 --dport <dport>    define default server port
 --jwtkey <jwtkey>  define jwt key for signing login tokens
---dbname <dbname>  define name for signed up users database
 --authexp <time>   define a life time for login sessions. Format: "2 days", "10h", "7d"
 -h, --help         display help for command
 ```
@@ -26,10 +25,10 @@ Options:
 ```shell
 server|run [options]    start the local cloud storage server
 Options:
--p, --port <port>    tell server which port to use
--h, --host <host>    tell server which host to use
---https [days]       tell server to use https protocol
---help               display help for command
+-p, --port <port>       tell server which port to use
+-h, --host <host>       tell server which host to use
+-https, --secure [days] tell server to use https protocol
+--help                  display help for command
 ```
 
 ```shell
@@ -38,6 +37,7 @@ Options:
 -c, --config    clear server config
 -s, --storage   clear server storage
 -db, --database drop user database
+-l, --logs      delete server logs
 -a, --all       clear all server data
 -h, --help      display help for command
 ```

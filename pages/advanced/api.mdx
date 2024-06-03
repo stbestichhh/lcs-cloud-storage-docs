@@ -13,7 +13,7 @@ Create user account.
 ```json
 {
   "body":
-    "name": "myname",
+    "username": "myname",
     "email": "email@email.com",
     "password": "mypass",
 }
@@ -69,238 +69,30 @@ Login to user account.
 
 ## Filesystem
 
-### `GET /storage/cmd/cat`
-
-Shows files content
-
-### Authentication
+#### Authentication
 
 ```
 Bearer <auth token>
 ```
 
-### Request
-
-```json
-{
-  "body":
-    "path": "dir1/file.txt",
-}
-```
-
-### Response
-
-```json
-{
-    "content": "some content"
-}
-```
-
-### Possible exceptions
-
-```
-400 | Path does not exists 'If specified path not exists'
-```
-
-
-### `GET /storage/cmd/ls`
-
-Lists directory content on the specified path
-
-### Authentication
-
-```
-Bearer <auth token>
-```
-
-### Request
-
-```json
-{
-  "body":
-    "path": "dir1",
-}
-```
-
-### Response
-
-```json
-[
-  "dir2",
-  "nesteddir",
-  "file.txt"
-]
-```
-
-### Possible exceptions
-
-```
-400 | Path does not exists 'If specified path not exists'
-400 | Using ls command on a file
-```
-
-### `POST /storage/cmd/md`
-
-Creates directory in the specified path. If path not exists, will create directory recursively.
-
-### Authentication
-
-```
-Bearer <auth token>
-```
-
-### Request
-
-```json
-{
-  "body":
-    "path": "dir1/nesteddir",
-    "dirname": "dir3"
-}
-```
-
-### Possible exceptions
-
-```
-400 | No name provided 'If 'dirname' in request body is missing' or path not exists
-```
-
-### `POST /storage/cmd/touch`
-
-Creates file in the specified path. If path not exists, will create throw error.
-
-### Authentication
-
-```
-Bearer <auth token>
-```
-
-### Request
-
-```json
-{
-    "path": "dir1/nesteddir/file.txt"
-    "content": "some content"
-}
-```
-
-### Response
-
-```json
-{
-    "message": "File created"
-}
-```
-
-### Possible exceptions
-
-```
-400 | No such file or directory 'path does not exists'
-```
-
-### `PUT /storage/cmd/mv`
-
-Moves file or directory to the specified path or rename them.
-
-### Authentication
-
-```
-Bearer <auth token>
-```
-
-### Request
-
-```json
-{
-  "path": "dir1/dir2"
-  "newpath": "dir1/nesteddir/dir2"
-}
-```
-
-### Response
-
-### Possible exceptions
-
-```
-400 | No body provided 'If 'newDirpath' in request body is missing'
-400 | No such file or directory 'path specified in 'newDirpath' does not exists'
-```
-
-### `DELETE /storage/cmd/rmrf`
-
-Removes not empty directories and files
-
-### Authentication
-
-```
-Bearer <auth token>
-```
-
-### Request
-
-```json
-{
-  "body":
-    "path": "dir1/nesteddir",
-}
-```
-
-### Response
-
-```json
-{
-    "message": "Directory removed."
-}
-```
-
-### Possible exceptions
-
-```
-400 | No such file or directory 'Target path does not exists'
-```
-
-### `DELETE /storage/cmd/rm`
-
-Removes empty directories and files
-
-### Authentication
-
-```
-Bearer <auth token>
-```
-
-### Request
-
-```json
-{
-  "body":
-    "path": "file.txt",
-}
-```
-
-### Response
-
-```json
-{
-    "message": "File removed."
-}
-```
-
-### Possible exceptions
-
-```
-400 | No such file or directory 'Target path does not exists'
-```
-
-### `POST /storage/cmd/ul`
+### `POST /storage?cmd=<command>`
+
+|**Command**|**Description**|**Request body**|
+|-|-|-|
+| _cat_ | show file content | path |
+| _ls_ | list directory | path |
+| _md_ | create directory | path |
+| _touch_ | create a file | path, content |
+| _mv_ | move or rename directory and file | path, newPath |
+| _rmrf_ | delete file or directory | path |
+| _rm_ | delete file or empty directory | path |
+| _download_ | download file | path |
+| _tree_ | list directory tree | path |
+
+
+### `POST /storage/upload`
 
 Uploads file or files to the specified path. If target directory not exists it creates a new one recursively
-
-### Authentication
-
-```
-Bearer <auth token>
-```
 
 ### Request
 
@@ -327,84 +119,11 @@ Example: `file:///Users/user/Files/file.txt`
 }
 ```
 
-### `GET /storage/cmd/dl`
 
-Downloads file from specified path
-
-### Authentication
-
-```
-Bearer <auth token>
-```
-
-### Request
-
-#### Url example
-
-```json
-{
-  "body":
-    "path": "dir1/file.txt",
-}
-```
-
-### Possible exceptions
-
-```
-400 | No such file 'Target path does not exists'
-```
-
-### `GET /storage/cmd/tree`
-
-Returns directory tree
-
-### Authentication
-
-```
-Bearer <auth token>
-```
-
-### Request
-
-#### Url example
-
-```json
-{
-  "body":
-    "path": "dir1",
-}
-```
-
-### Response
-
-```json
-{
-    "tree": {
-      "dir1": {
-        "nesteddir": {
-          "dir3": {}
-        }
-        "file.txt": null
-      }
-    }
-}
-```
-
-### Possible exceptions
-
-```
-400 | No such file 'Target path does not exists'
-```
 
 ### `GET /user/me`
 
 Return currently logged in user
-
-### Authentication
-
-```
-Bearer <auth token>
-```
 
 ### Response
 
@@ -421,12 +140,6 @@ Bearer <auth token>
 
 Edit user data
 
-### Authentication
-
-```
-Bearer <auth token>
-```
-
 ### Request
 
 #### Url example
@@ -438,3 +151,7 @@ Bearer <auth token>
     "password": "newpassword"
 }
 ```
+
+### `POST /user/me`
+
+Recreate user storage if it was deleted
